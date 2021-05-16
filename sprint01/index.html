@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Sprint00</title>
+</head>
+<body>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+    <script src="js/main.js"></script>
+    
+    <h1>SOLE Solver</h1>
+
+    <form name='sole'>
+        <p>Choose how to input 
+            <input type="radio" name="input" id="file" onclick="fileInput()" checked>
+            <label for="file">file</label>
+            <input type="radio" name="input" id="keyboard" onclick="keybInput()">
+            <label for="keyboard">keyboard</label>
+        </p>
+
+        <input type="file" class="fileInput" accept=".txt" id="file-selector" onchange="readFile(this); drawMatrix()">
+        
+        
+
+        <div class="keybInput">
+            <p>please, input the string of numbers, where:</p>
+            <p>1st number is n, the number of Xs</p>
+            <p>nxn numbers, the matrix A</p>
+            <p>n numbers, the matrix B</p>
+            
+            <input type="text" class="input">   
+        </div>
+        <input type="button" name="solveSole" id="solveSole" value="solve" 
+            onclick="
+            document.querySelector('.solving').style = 'display: unset; margin-top: 15px; text-align: center;'
+            document.querySelector('.result').style = 'display: unset;'
+            document.querySelector('.checkingroots').style = 'display: unset;'">
+
+        <input type="button" name="solveSoleKeyb" id="solveSoleKeyb" value="solve" 
+            onclick=" 
+        
+             document.querySelector('.result').style = 'display: unset;'
+            document.querySelector('.checkingroots').style = 'display: unset;'
+            matrixFromKeyb()">
+    
+    
+<br>
+<div id="matrix">
+            </div>   
+<br>
+
+            <div class="solving">
+                <input type="radio" name="solving" id="cramer" onclick="result(1)" checked>
+                <label for="file">cramer</label>
+                <input type="radio" name="solving" id="jacobi" onclick="result(2)">
+                <label for="keyboard">jacobi</label>
+                <input type="radio" name="solving" id="gauss" onclick="result(3)">
+                <label for="keyboard">gauss</label>
+                <input type="radio" name="solving" id="seidel" onclick="result(4)">
+                <label for="keyboard">seidel</label>
+                <input type="radio" name="solving" id="gaussjordan" onclick="result(5)">
+                <label for="keyboard">gauss-jordan</label>
+            </div>
+
+            <br>
+            <br>
+            <p class="result"></p>
+            <br>
+            <br>
+            <p class="checkingroots"></p>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Sprint02</title>
+</head>
+
+<body>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/main.js"></script>
+    
+
+    <h1>Sprint02</h1>
+
+    <form name='sole'>
+        <p>Choose method
+            <input type="radio" name="input" id="integral" onclick='document.querySelector("#integr").style = "display: unset; text-align: center;"
+            document.querySelector("#diffur").style = "display: none;"' checked>
+            <label for="integral">integral</label>
+            <input type="radio" name="input" id="differential" onclick='document.querySelector("#diffur").style = "display: unset; text-align: center;"
+            document.querySelector("#integr").style = "display: none;"'>
+            <label for="differential">differential</label>
+        </p>
+
+
+        <div id="integr">
+
+            <select id="selectint">
+                <option>exp(-x)</option>
+                <option>sin(x)</option>
+                <option>x^2</option>
+                <option>exp(-x^2)</option>
+                <option>exp(-4x-x^3)</option>
+            </select>
+            <br>
+            <br>
+            <div class="nums">
+                <label> a = </label><input type="number" id="a_integral" value='0'>
+                <label> b = </label><input type="number" id="b_integral" value='1'>
+                <label> N = </label><input type="number" id="n_integral" value='10'>
+            </div>
+
+            <br>
+
+            <input type="button" id="allmethods" value="all methods" onclick="resultintgrall()">
+            <br>
+            <div id="result">
+            </div>
+            <br>
+
+            <div class="solvinterg">
+                <input type="radio" name="integrres" id="riemann_sum_left" onclick="resultintgr(1)">
+                <label for="file">Riemann sum (left)</label>
+                <input type="radio" name="integrres" id="riemann_sum_right" onclick="resultintgr(2)">
+                <label for="keyboard">Riemann sum (right)</label>
+                <input type="radio" name="integrres" id="riemann_sum_center" onclick="resultintgr(3)">
+                <label for="keyboard">Riemann sum (center)</label>
+                <input type="radio" name="integrres" id="trapezoid" onclick="resultintgr(4)">
+                <label for="keyboard">Trapezoid</label>
+                <input type="radio" name="integrres" id="simpson" onclick="resultintgr(5)">
+                <label for="keyboard">Simpson rule</label>
+            </div>
+
+            <br>
+            <br>
+            <p id="result1"></p>
+            
+
+        </div>
+
+
+        <div id="diffur">
+            <select  id="selectdiff">
+                <option>y'=-xy</option>
+                <option>y'=y+x</option>
+                <option>y'=(3x-12x^2)y</option>
+                <option>y'=(x^2-(2*y))</option>
+                <option>y'=x^3+y</option>
+            </select>
+            <br>
+            <br>
+            <div class="diff_nums">
+                <label> a = </label><input type="number" id="a_diff" value='0'>
+                <label> b = </label><input type="number" id="b_diff" value='1'>
+                <label> N = </label><input type="number" id="n_diff" value='10' min='1'>
+                <label> y0 = </label><input type="number" id="y_zero" value='1'>
+            </div>
+            <br>
+
+            <input type="button" id="allmethods" value="all methods" onclick="resultdiffall()">
+            <br>
+            <br>
+
+            <div class="solvdiff">
+                <input type="radio" name="difres" id="euler" onclick="resultdiff(1)">
+                <label for="file">Euler</label>
+                <input type="radio" name="difres" id="Runge_Kutta2" onclick="resultdiff(2)">
+                <label for="keyboard">Runge-Kutta 2</label>
+                <input type="radio" name="difres" id="Runge_Kutta3" onclick="resultdiff(3)">
+                <label for="keyboard">Runge-Kutta 3</label>
+                <input type="radio" name="difres" id="Runge_Kutta4" onclick="resultdiff(4)">
+                <label for="keyboard">Runge-Kutta 4</label>
+            </div>
+
+            <br>
+            <br>
+            <p id="result2"></p>
+
+            <canvas id="chart1" width="60" height="40"></canvas>
+            <canvas id="chart2" width="60" height="40"></canvas>
+            <canvas id="chart3" width="60" height="40"></canvas>
+            <canvas id="chart4" width="60" height="40"></canvas>
+
+        </div>
+    </form>
+
+</body>
+
+</html>
