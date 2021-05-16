@@ -1,4 +1,4 @@
-let chart = null
+var chart = null
 
 function createCopy(A) {
     let copy = []
@@ -77,7 +77,6 @@ function input(){
     result(1)
 }
 
-
 function resultintgr(method){
     let func
 
@@ -122,8 +121,6 @@ function resultintgr(method){
             break
     }
 }
-
-
 
 function euler(a, b, n, y0, func){
     
@@ -196,38 +193,48 @@ function arrToStr(arr){
     return str + ']'
 }
 
-function drawAChart(id, arr, notFirst){
-    if (chart && notFirst) {
-        document.getElementById(id).innerHTML = "";
-        chart.destroy();
-    }
-    let label  = ''
-    let color  = ''
-    let xs = []
-    // console.log(arr)
-    switch(id){
-        case 'chart1': label = "Euler"; color = 'rgb(30, 72, 163)'; break
-        case 'chart2': label = "Runge-Kutta 2"; color = 'rgb(219, 94, 21)'; break
-        case 'chart3': label = "Runge-Kutta 3"; color = 'rgb(219, 21, 186)'; break
-        case 'chart4': label = "Runge-Kutta 4"; color = 'rgb(5, 238, 30)'; break
-    }
-    for(let i = 0; i < arr.length; i++){
-        xs[i] = 'y(x'+ i+')'
-    }
-    chart = new Chart(document.getElementById(id).getContext('2d'), {
-        type: 'line',
-        responsive:false,
-        maintainAspectRatio: false,
-        data: {
-            labels: xs,
-            datasets: [{
-                label: label,
-                backgroundColor: color,
-                borderColor: 'rgb(0, 0, 0)',
-                data: arr
-            }]
+function drawAChart(id, arr, notfirst){
+            
+        if (chart && notfirst) {
+            for(let i = 1; i < 5; i++)
+                document.getElementById('chart' + i).innerHTML = "";
+            chart.destroy()
         }
-    })
+        
+
+        if(chart && document.getElementById(id).innerHTML){
+            document.getElementById(id).innerHTML = "";
+            chart.destroy()
+        }
+        let label  = ''
+        let color  = ''
+        let xs = []
+    
+        
+        switch(id){
+            case 'chart1': label = "Euler"; color = 'rgb(30, 72, 163)'; break
+            case 'chart2': label = "Runge-Kutta 2"; color = 'rgb(219, 94, 21)'; break
+            case 'chart3': label = "Runge-Kutta 3"; color = 'rgb(219, 21, 186)'; break
+            case 'chart4': label = "Runge-Kutta 4"; color = 'rgb(5, 238, 30)'; break
+        }
+        for(let i = 0; i < arr.length; i++){
+            xs[i] = 'y(x'+ i+')'
+        }
+        chart = new Chart(document.getElementById(id).getContext('2d'), {
+            type: 'line',
+            responsive:false,
+            maintainAspectRatio: false,
+            data: {
+                labels: xs,
+                datasets: [{
+                    label: label,
+                    backgroundColor: color,
+                    borderColor: 'rgb(0, 0, 0)',
+                    data: arr
+                }]
+            }
+        })
+    
 
 }
 function resultdiff(method){
@@ -247,8 +254,15 @@ function resultdiff(method){
         case "y'=(3x-12x^2)y":
             func = f8
             break
+        case "y'=(x^2-(2*y))":
+            func = f9
+            break
+        case "y'=x^3+y":
+            func = f10
+            break
     }
-
+  
+    document.getElementById('chart' + method).style = 'display: unset'
     switch (method){
         case 1:
             document.getElementById("result2").textContent = "Euler = " + arrToStr(euler(a, b, n, y, func))
@@ -267,48 +281,48 @@ function resultdiff(method){
             drawAChart('chart4', Runge_Kutta4(a, b, n, y, func), true)
             break
     }
+    
 }
 
-function resultdiffall(){
-    let func
-    switch(document.querySelector("#selectdiff").value){
-        case "y'=-xy":
-            func = f6
-            break
-        case "y'=y+x":
-            func = f7
-            break
-        case "y'=(3x-12x^2)y":
-            func = f8
-            break
-        case "y'=(x^2-(2*y))":
-            func = f9
-            break
-        case "y'=x^3+y":
-            func = f10
-            break
-    }
-    let text = document.getElementById("result2");
-    let a = parseFloat(document.querySelector("#a_diff").value)
-    let b = parseFloat(document.querySelector("#b_diff").value)
-    let n = parseInt(document.querySelector("#n_diff").value)
-    let y = parseFloat(document.querySelector("#y_zero").value)
-    let table = '<table>'
+// function resultdiffall(){
+//     let func
+//     switch(document.querySelector("#selectdiff").value){
+//         case "y'=-xy":
+//             func = f6
+//             break
+//         case "y'=y+x":
+//             func = f7
+//             break
+//         case "y'=(3x-12x^2)y":
+//             func = f8
+//             break
+//         case "y'=(x^2-(2*y))":
+//             func = f9
+//             break
+//         case "y'=x^3+y":
+//             func = f10
+//             break
+//     }
+//     let text = document.getElementById("result2");
+//     let a = parseFloat(document.querySelector("#a_diff").value)
+//     let b = parseFloat(document.querySelector("#b_diff").value)
+//     let n = parseInt(document.querySelector("#n_diff").value)
+//     let y = parseFloat(document.querySelector("#y_zero").value)
+//     let table = '<table>'
 
  
-        table += "<tr>" + "<td>" + "Euler = " + arrToStr(euler(a, b, n, y, func)) + "</td>" + "</tr>"
-        table += "<tr>" + "<td>" + "Runge-Kutta 2 = " + arrToStr(Runge_Kutta2(a, b, n, y, func)) + "</td>" + "</tr>"
-        table += "<tr>" + "<td>" + "Runge-Kutta 3 = " + arrToStr(Runge_Kutta3(a, b, n, y, func)) + "</td>" + "</tr>"
-        table += "<tr>" + "<td>" + "Runge-Kutta 4 = " + arrToStr(Runge_Kutta4(a, b, n, y, func)) + "</td>" + "</tr>"
+//         table += "<tr>" + "<td>" + "Euler = " + arrToStr(euler(a, b, n, y, func)) + "</td>" + "</tr>"
+//         table += "<tr>" + "<td>" + "Runge-Kutta 2 = " + arrToStr(Runge_Kutta2(a, b, n, y, func)) + "</td>" + "</tr>"
+//         table += "<tr>" + "<td>" + "Runge-Kutta 3 = " + arrToStr(Runge_Kutta3(a, b, n, y, func)) + "</td>" + "</tr>"
+//         table += "<tr>" + "<td>" + "Runge-Kutta 4 = " + arrToStr(Runge_Kutta4(a, b, n, y, func)) + "</td>" + "</tr>"
 
-    text.innerHTML = table + '</table>'
-    
-    drawAChart('chart1', euler(a, b, n, y, func), true)
-    drawAChart('chart2', Runge_Kutta2(a, b, n, y, func), false)
-    drawAChart('chart3', Runge_Kutta3(a, b, n, y, func), false)
-    drawAChart('chart4', Runge_Kutta4(a, b, n, y, func), false)
-    
-}
+//     text.innerHTML = table + '</table>'
+
+//     drawAChart('chart1', euler(a, b, n, y, func), true, true)
+//     drawAChart('chart2', Runge_Kutta2(a, b, n, y, func), false, true)
+//     drawAChart('chart3', Runge_Kutta3(a, b, n, y, func), false, true)
+//     drawAChart('chart4', Runge_Kutta4(a, b, n, y, func), false, true)
+// }
 
 function resultintgrall(){
     let func 
