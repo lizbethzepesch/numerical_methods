@@ -30,7 +30,8 @@ function toAdjacencies(ribs, numNodes){
             for(let k = 0; k < ribs.length; k++){
                 if(ribs[k][0] === i && ribs[k][1] === j) {
                 res[i - 1][j - 1] = 1
-                break}
+                break
+            }
                 else res[i - 1][j - 1] = 0
                 
             }
@@ -72,7 +73,6 @@ function form(matrix){
             
             if(matrix[i][j] === 1)
                 res[i].push(j+1)
-            
         }
     }
     return res
@@ -97,39 +97,40 @@ function pForm(matrix){
 function toTable(matrix){
     let res = '<table>'
 
-    res += '<tr>'
     for (let i = 0; i < matrix.length; i++){
         res += '<tr> ' 
         for(let j = 0; j < matrix.length; j++)
             res += '<td>' + matrix[i][j] + '</td>' 
-        res += '</tr>'
+        res += ' </tr>'
     }
     res += '</table>'
     return res
 }
 
-function main(){
-    var ribs = new Array()
+var ribs = new Array()
+let numOfNodes = 6
+ribs.push([1, 2])
+ribs.push([2, 3])
+ribs.push([3, 6])
+ribs.push([1, 4])
+ribs.push([4, 3])
+ribs.push([3, 4])
+ribs.push([4, 5])
+ribs.push([6, 5])
+ribs.push([2, 4])
+ribs.push([5, 3])
 
-    ribs.push([1, 2])
-    ribs.push([2, 3])
-    ribs.push([3, 6])
-    ribs.push([1, 4])
-    ribs.push([4, 3])
-    ribs.push([3, 4])
-    ribs.push([4, 5])
-    ribs.push([6, 5])
-    ribs.push([2, 4])
-    ribs.push([5, 3])
+document.querySelector('#adjacencies').innerHTML += toTable(toAdjacencies(ribs, numOfNodes))
+document.querySelector('#incident').innerHTML += toTable(toIncident(ribs, numOfNodes))
 
-    document.getElementById('adjacencies').textContent = toTable(toAdjacencies(ribs, 6))
-    // console.log(document.querySelector('#adjacencies'))
-    // document.querySelector('#incident').textContent = toTable(toIncident(ribs, 6))
+document.querySelector('#degree').textContent += 'Степень вершин: ' 
+for(let i = 0; i < numOfNodes; i++)
+    document.querySelector('#degree').textContent += (i + 1) + ':'+ degree(toAdjacencies(ribs, numOfNodes))[i][1] + ', '
 
+document.querySelector('#form').textContent += 'Образы: ' 
+for(let i = 0; i < numOfNodes; i++)
+    document.querySelector('#form').textContent += (i + 1) + ':(' + form(toAdjacencies(ribs, numOfNodes))[i] + '),'
 
-    console.log(degree(toAdjacencies(ribs, 6)))
-    console.log(form(toAdjacencies(ribs, 6)))
-    console.log(pForm(toAdjacencies(ribs, 6)))
-}
-
-main()
+document.querySelector('#pForm').textContent += 'Прообразы: ' 
+for(let i = 0; i < numOfNodes; i++)
+    document.querySelector('#pForm').textContent += (i + 1) + ':(' + pForm(toAdjacencies(ribs, numOfNodes))[i] + '),'
