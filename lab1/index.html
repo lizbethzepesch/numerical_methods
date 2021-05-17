@@ -18,7 +18,31 @@
         <p>input the two sets, separated by spaces</p>
         <input type="text" class="A"><br><br>
         <input type="text" class="B"><br><br>
-        <input type="button" name="solveSole" id="solveSole" value="solve">
+        
+
+        <select  id="select">
+            <option>union</option>
+            <option>entry</option>
+            <option>symmetric difference</option>
+            <option>difference</option>
+            <option>intersection</option>
+        </select>
+        <br>
+        <br>
+        <input type="button" name="solveSole" id="solveSole" value="solve" onclick="solve()"><br>
+        <br><br>
+    
+        
+        <br>
+
+        <br>
+        <div id='result'>
+            <label>Result:</label><br>
+            <p class='mA'>A: </p>
+            <p class='mB'>B: </p>
+            <br>
+            <p class='res'></p>
+        </div>
 
     </form>
 </body>
