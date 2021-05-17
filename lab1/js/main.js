@@ -1,11 +1,38 @@
 function symmetric_difference(matrixA, matrixB){
-    // let temp = union(matrixA, matrixB)
-    // let res = []
-    // for (let i = 0; i < temp.length; i++)
-    //     if (!matrixA.includes(temp[i]) || matrixB.includes(temp[i]))
-    //         res.push[i]
+    let res = []
+    matrixA.filter((value, index, arr) => arr.indexOf(value) === index)
+    matrixB.filter((value, index, arr) => arr.indexOf(value) === index)
+    matrixA.sort()
+    matrixB.sort()
+    
+    let i = 0
+    let k = 0
+    let j = 0
 
-    // return res
+    while ((i < matrixA.length) && (j < matrixB.length)) { 
+        if (matrixA[i] < matrixB[j]) { 
+            res[k] = matrixA[i]
+            k++
+            i++
+        } 
+        else if (matrixA[i] > matrixB[j]) {
+            res[k] = matrixB[j]
+            k++
+            j++
+        } 
+        else {
+            i++
+            j++
+        }
+    }
+    
+    for (; i < matrixA.length; k++, i++)  
+        res[k] = matrixA[i]
+
+    for (; j < matrixB.length; k++, j++) 
+        res[k] = matrixB[j]
+
+    return res
 }
 
 function difference(matrixA, matrixB){
