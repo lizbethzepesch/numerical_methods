@@ -8,6 +8,38 @@ function symmetric_difference(matrixA, matrixB){
     // return res
 }
 
+function difference(matrixA, matrixB){
+    let res = []
+    matrixA.filter((value, index, arr) => arr.indexOf(value) === index)
+    matrixB.filter((value, index, arr) => arr.indexOf(value) === index)
+    matrixA.sort()
+    matrixB.sort()
+    
+    let i = 0
+    let k = 0
+
+	for (let j = 0; i < matrixA.length && j < matrixB.length; ) {
+		if (matrixA[i] == matrixB[j]) { 
+			i++
+            j++
+		} 
+        else {
+			if (matrixA[i] < matrixB[j]) {
+				res[k] = matrixA[i]
+				k++
+				i++
+			} 
+            else j++
+		}
+	}
+
+	for (; i < matrixA.length; k++, i++) 
+		res[k] = matrixA[i]
+		
+	
+    return res;
+}
+
 function intersection(matrixA, matrixB){
     let res = []
     matrixA.filter((value, index, arr) => arr.indexOf(value) === index)
