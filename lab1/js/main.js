@@ -91,7 +91,7 @@ function fixInput(set){
     for (let i = 0; i < set.length; i++)
         if(!res.includes(set[i].toUpperCase()) && set[i].length === 1 && set[i].match(/[matrixA-z]/i))
             res.push(set[i].toUpperCase())
-    return res
+    return res.sort()
 }
 
 function entry(matrixA, matrixB){
